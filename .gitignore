@@ -1,6 +1,6 @@
 # ===== Ignore Node Modules =====
 server/node_modules/
-
+client/node_modules/
 
 # ===== Logs =====
 server/npm-debug.log*
