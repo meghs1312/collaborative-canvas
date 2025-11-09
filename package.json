@@ -1,16 +1,16 @@
 {
   "name": "collabrative-canvas",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "dev": "cd server && nodemon server.js",
     "start": "node server/server.js",
     "build": "echo 'No build step required'"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5",
+    "path": "^0.12.7"
+  },
   "devDependencies": {
     "nodemon": "^3.1.10"
   }
