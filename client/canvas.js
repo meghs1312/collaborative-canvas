@@ -1,7 +1,7 @@
 // Handles canvas drawing logic, UI + WebSocket communication
 // Ask user for name before connecting
 // let userName = prompt("Enter your name:") || "Guest";
-// socket.emit("registerName", userName);
+
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -37,7 +37,7 @@ function setCursor() {
 }
 setCursor();
 
-// 🎨 Color picker
+//  Color picker
 document.getElementById("colorPicker").addEventListener("input", (e) => {
   currentColor = e.target.value;
   erasing = false;
@@ -46,23 +46,23 @@ document.getElementById("colorPicker").addEventListener("input", (e) => {
   sendColorChange(currentColor);
 });
 
-// 🪶 Stroke width control
+// Stroke width control
 document.getElementById("strokeWidth").addEventListener("input", (e) => {
   strokeWidth = e.target.value;
 });
 
-// 🩹 Eraser toggle
+//  Eraser toggle
 document.getElementById("eraser").addEventListener("click", () => {
   erasing = !erasing;
   document.getElementById("eraser").style.background = erasing ? "#ffb3b3" : "";
   setCursor();
 });
 
-// ⏪ Undo / Redo
+//  Undo / Redo
 document.getElementById("undo").addEventListener("click", () => socket.emit("undo"));
 document.getElementById("redo").addEventListener("click", () => socket.emit("redo"));
 
-// 🖱️ Mouse Events
+//  Mouse Events
 canvas.addEventListener("mousedown", (e) => {
   drawing = true;
   lastX = e.clientX;
@@ -120,7 +120,7 @@ canvas.addEventListener("mousemove", (e) => {
   lastY = y;
 });
 
-// ✏️ Draw from server data
+//  Draw from server data
 function drawFromServer(data) {
   ctx.beginPath();
   ctx.moveTo(data.prevX, data.prevY);
@@ -132,7 +132,7 @@ function drawFromServer(data) {
   ctx.stroke();
 }
 
-// 🎨 Remote color changes
+// Remote color changes
 function setRemoteColor(newColor) {
   currentColor = newColor;
   document.getElementById("colorPicker").value = newColor;
@@ -141,7 +141,7 @@ function setRemoteColor(newColor) {
   setCursor();
 }
 
-// 🧩 Redraw entire canvas (for undo/redo/full sync)
+//  Redraw entire canvas (for undo/redo/full sync)
 function redrawCanvas(strokes = []) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   if (!strokes || strokes.length === 0) return;
@@ -199,12 +199,12 @@ function drawCursors() {
   }
 }
 
-// 🔁 Server sync (undo/redo/full canvas updates)
+//  Server sync (undo/redo/full canvas updates)
 socket.on("updateCanvas", (newHistory) => {
   redrawCanvas(newHistory || []);
 });
 
-// 🖊️ Remote begin/end paths
+//  Remote begin/end paths
 function remoteBeginPath(x, y) {
   ctx.beginPath();
   ctx.moveTo(x, y);
