@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, "../client")));
 const users = {};
 const userStrokes ={};
 
-// 🎨 Assign random user color
+//  Assign random user color
 function getRandomColor() {
   const hue = Math.floor(Math.random() * 360);
   return `hsl(${hue}, 90%, 55%)`;
@@ -52,7 +52,7 @@ io.on("connection", (socket) => {
     }
   });
 
-  // ✏️ When user starts a stroke
+  //  When user starts a stroke
   socket.on("beginPath", (data) => {
     // Add to server-side stroke state
     startStroke(data);
@@ -60,7 +60,7 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("beginPath", data);
   });
 
-  // 🖊️ When user draws points
+  // When user draws points
  socket.on("draw", (data) => {
   // Keep stroke data consistent
   addPointToStroke(data.x, data.y);
@@ -78,7 +78,7 @@ io.on("connection", (socket) => {
 });
 
 
-  // 🛑 When user finishes stroke (mouseup)
+  //  When user finishes stroke (mouseup)
   socket.on("endStroke", () => {
     const stroke = endStroke();
     if (stroke) {
@@ -89,27 +89,27 @@ io.on("connection", (socket) => {
     }
   });
 
-  // 🎨 Color change broadcast
+  //  Color change broadcast
   socket.on("colorChange", (data) => {
     console.log(`🎨 User ${socket.id} changed color to ${data.color}`);
     socket.broadcast.emit("colorChange", data);
   });
 
-  // ⏪ Global Undo
+  //  Global Undo
   socket.on("undo", () => {
     const h = undo();
     io.emit("updateCanvas", h);
     console.log("↩️ Global Undo triggered by", socket.id);
   });
 
-  // ↪️ Global Redo
+  // Global Redo
   socket.on("redo", () => {
     const h = redo();
     io.emit("updateCanvas", h);
     console.log("↪️ Global Redo triggered by", socket.id);
   });
 
-  // 👆 Cursor Movement Sync
+  //  Cursor Movement Sync
  socket.on("cursorMove", (pos) => {
   socket.broadcast.emit("cursorMove", {
     id: socket.id,
@@ -122,7 +122,7 @@ io.on("connection", (socket) => {
 });
 
 
-  // ❌ User disconnected
+  //  User disconnected
   socket.on("disconnect", () => {
     console.log(`🔴 ${userName} disconnected`);
     delete users[socket.id];
@@ -131,7 +131,7 @@ io.on("connection", (socket) => {
   });
 });
 
-// 🚀 Start Server
+//  Start Server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
