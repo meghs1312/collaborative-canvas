@@ -89,7 +89,7 @@ Follow these steps to run the app locally:
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/your-username/collaborative-canvas.git
+git clone https://github.com/meghs1312/collaborative-canvas.git
 cd collaborative-canvas
 cd server.js
 
